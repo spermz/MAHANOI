@@ -25,7 +25,7 @@ public class HttpManager {
     private HttpManager() {
         mContext = Contextor.getInstance().getContext();
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://161.246.5.206:3000/api/")
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://161.246.5.206:80/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

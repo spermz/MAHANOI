@@ -1,15 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-<TextView
-    android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:text="Hee1"/>
+    android:weightSum="4"
+    android:orientation="vertical"
+    >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="@color/text"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:text="Services Available"/>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            >
+                <ImageButton
+                    android:id="@+id/im_btn_Food"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_margin="5dp"
+                    android:background="@color/colorPrimaryLight"
+                    android:src="@drawable/ic_service_food"/>
 
+                <ImageButton
+                    android:id="@+id/im_btn_Plumber"
+                    android:layout_toRightOf="@+id/im_btn_Food"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:padding="10dp"
+                    android:background="@color/colorPrimaryLight"
+                    android:src="@drawable/is_service_plumber"
+                    />
 
+        </RelativeLayout>
 
-</android.support.constraint.ConstraintLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="0.5"
+            >
+                <ImageButton
+                    android:id="@+id/im_btn_electrician"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:padding="10dp"
+                    android:background="@color/colorPrimaryLight"
+                    android:src="@drawable/ic_service_electrician"/>
+
+                <ImageButton
+                    android:id="@+id/im_btn_cleaning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/im_btn_electrician"
+                    android:padding="10dp"
+                    android:layout_margin="5dp"
+                    android:background="@color/colorPrimaryLight"
+                    android:src="@drawable/ic_service_cleaning"/>
+
+        </RelativeLayout>
+
+</LinearLayout>

@@ -2,6 +2,7 @@ package com.seniorproject.kabigonb.mahanoi.manager.http;
 
 import com.seniorproject.kabigonb.mahanoi.dao.LoginDao;
 import com.seniorproject.kabigonb.mahanoi.dao.RegisterDao;
+import com.seniorproject.kabigonb.mahanoi.dao.RequestFormDao;
 import com.seniorproject.kabigonb.mahanoi.dao.TokenDao;
 
 import retrofit2.Call;
@@ -23,5 +24,6 @@ public interface ApiService {
     @POST("userLogout")
     Call<TokenDao> userLogout(@Body TokenDao tokenDao);
 
-
+    @POST("userOfferRequest")
+    Call<RequestFormDao> userRequest(@Body RequestFormDao requestFormDao);
 }

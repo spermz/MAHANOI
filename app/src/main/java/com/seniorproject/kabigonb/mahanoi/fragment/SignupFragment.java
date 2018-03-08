@@ -2,6 +2,7 @@ package com.seniorproject.kabigonb.mahanoi.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,9 +100,6 @@ public class SignupFragment extends Fragment implements View.OnClickListener, Ca
             Call<RegisterDao> call = HttpManager.getInstance().getService().registerUser(regFormDAO());
             call.enqueue(this);
 
-            getFragmentManager().beginTransaction().
-                    replace(R.id.contentContainer, MainFragment.newInstance())
-                    .commit();
         }
 
         }
@@ -128,15 +126,11 @@ public class SignupFragment extends Fragment implements View.OnClickListener, Ca
             RegisterDao signupResponse = response.body();
             if(signupResponse.getErrorMessage() != null)
             {
-                Toast.makeText(getActivity(), signupResponse.getErrorMessage(), Toast.LENGTH_LONG).show();
-            }
-            else if(signupResponse.getStatusMessage() != null)
-            {
-                Toast.makeText(getActivity(), signupResponse.getStatusMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), signupResponse.getErrorMessage(), Toast.LENGTH_SHORT).show();
             }
             else
             {
-                Toast.makeText(getActivity(), "Register Successful", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Register Successful", Toast.LENGTH_SHORT).show();
                 getFragmentManager().beginTransaction()
                                     .replace(R.id.contentContainer,MainFragment.newInstance())
                                     .commit();
@@ -146,7 +140,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener, Ca
         else
         {
             try {
-                Toast.makeText(getActivity(),response.errorBody().string(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),response.errorBody().string(),Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -157,7 +151,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener, Ca
 
     @Override
     public void onFailure(Call<RegisterDao> call, Throwable t) {
-        Toast.makeText(getActivity(),t.toString(),Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(),t.toString(),Toast.LENGTH_SHORT).show();
     }
 }
 

@@ -9,6 +9,7 @@
     <color name="colorSecondaryLight">#ffc046</color>
 
 
-
+    <color name="text">#000000</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="FragmentBackground">#F5F5F5</color>
 </resources>

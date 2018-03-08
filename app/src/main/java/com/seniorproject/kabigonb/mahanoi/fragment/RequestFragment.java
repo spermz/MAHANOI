@@ -1,7 +1,10 @@
 package com.seniorproject.kabigonb.mahanoi.fragment;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,7 @@ import com.seniorproject.kabigonb.mahanoi.R;
  */
 public class RequestFragment extends Fragment {
 
+    ViewPager vpRequest;
 
     public RequestFragment() {
         super();
@@ -38,6 +42,52 @@ public class RequestFragment extends Fragment {
 
     private void initInstances(View rootView) {
         // Init 'View' instance(s) with rootView.findViewById here
+
+        vpRequest = rootView.findViewById(R.id.vpRequest);
+        vpRequest.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+
+                switch(position)
+                {
+                    case 0:
+                        return OpenFragment.newInstance();
+
+                    case 1:
+                        return CloseFragment.newInstance();
+                    default:
+                        return null;
+                }
+
+            }
+
+            @Override
+            public int getCount() {
+                return 2;
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+
+                switch(position)
+                {
+                    case 0:
+                        return "Open";
+                    case 1:
+                        return "Close";
+                    default:
+                        return "";
+
+                }
+
+            }
+
+
+        });
+
+        TabLayout tlRequest = rootView.findViewById(R.id.tlRequest);
+        tlRequest.setupWithViewPager(vpRequest);
+
 
     }
 

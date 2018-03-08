@@ -3,4 +3,9 @@
     <string name="menu_service">Service</string>
     <string name="menu_request">Request</string>
     <string name="menu_account">Account</string>
+    <string name="logout">Log Out</string>
+    <string name="list_service_name">Name</string>
+    <string name="list_service_serviceName">Service Name</string>
+    <string name="list_service_location">Location</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

@@ -9,6 +9,7 @@ import com.google.gson.annotations.SerializedName;
 public class TokenDao {
 
     @SerializedName("token")     private String token;
+    @SerializedName("Username")  private String userName;
     @SerializedName("err")       private String errorMessage;
     @SerializedName("status")    private String statusMessage;
 
@@ -34,5 +35,13 @@ public class TokenDao {
 
     public void setStatusMessage(String statusMessage) {
         this.statusMessage = statusMessage;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

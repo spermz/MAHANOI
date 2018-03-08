@@ -142,22 +142,29 @@ public class MainFragment extends Fragment implements View.OnClickListener, Call
             TokenDao token = response.body();
             if(token.getErrorMessage() != null)
             {
-                Toast.makeText(getActivity(),token.getErrorMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),token.getErrorMessage(),Toast.LENGTH_SHORT).show();
             }
             else if(token.getStatusMessage() != null)
             {
-                Toast.makeText(getActivity(),token.getStatusMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),token.getStatusMessage(),Toast.LENGTH_SHORT).show();
             }
             else
             {
+                Bundle bundle = new Bundle();
+                bundle.putString("token",token.getToken());
+                bundle.putString("userName",etUsername.getText().toString());
+
                 Intent intentLogIn = new Intent(getActivity(), Main2Activity.class);
+                intentLogIn.putExtra("tokenBundle",bundle);
+
                 startActivity(intentLogIn);
+                getActivity().finish();
             }
         }
         else
         {
             try {
-                Toast.makeText(getActivity(),response.errorBody().string(),Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),response.errorBody().string(),Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -167,7 +174,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Call
 
     @Override
     public void onFailure(Call<TokenDao> call, Throwable t) {
-        Toast.makeText(getActivity(),t.toString(),Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(),t.toString(),Toast.LENGTH_SHORT).show();
     }
 }
 
