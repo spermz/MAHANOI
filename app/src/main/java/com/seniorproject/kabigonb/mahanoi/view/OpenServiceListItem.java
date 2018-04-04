@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.widget.TextView;
 
 import com.inthecheesefactory.thecheeselibrary.view.BaseCustomViewGroup;
 import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
@@ -14,6 +15,8 @@ import com.seniorproject.kabigonb.mahanoi.R;
  * Created by nuuneoi on 11/16/2014.
  */
 public class OpenServiceListItem extends BaseCustomViewGroup {
+
+    TextView list_service_name,list_service_serviceName,list_service_location;
 
     public OpenServiceListItem(Context context) {
         super(context);
@@ -49,6 +52,11 @@ public class OpenServiceListItem extends BaseCustomViewGroup {
 
     private void initInstances() {
         // findViewById here
+        list_service_name = findViewById(R.id.list_service_name);
+        list_service_serviceName = findViewById(R.id.list_service_serviceName);
+        list_service_location =  findViewById(R.id.list_service_location);
+
+
     }
 
     private void initWithAttrs(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -97,4 +105,21 @@ public class OpenServiceListItem extends BaseCustomViewGroup {
         setMeasuredDimension(width,height);
 
     }
+
+    public void setList_service_name(String name)
+    {
+        list_service_name.setText(name);
+    }
+
+    public void setList_service_serviceName(String serviceName)
+    {
+        list_service_serviceName.setText(serviceName);
+    }
+
+    public void setList_service_location(String location)
+    {
+        list_service_location.setText(location);
+    }
+
+
 }

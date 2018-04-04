@@ -165,7 +165,7 @@ public class FoodServiceRequestFragment extends Fragment implements View.OnClick
             }
             else
             {
-                Toast.makeText(getContext(), Response.getStatusMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Request has been sent", Toast.LENGTH_SHORT).show();
                 getActivity().finish();
             }
 

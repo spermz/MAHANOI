@@ -141,7 +141,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:layout_gravity="center"
-        android:text="NEXT"/>
+        android:text="REQUEST"/>
 
 
 </LinearLayout>

@@ -12,4 +12,7 @@
     <color name="text">#000000</color>
     <color name="colorAccent">#FF4081</color>
     <color name="FragmentBackground">#F5F5F5</color>
+    <color name="myGreen">#FF1B5E20</color>
+    <color name="myRed">#FFD50000</color>
+    <color name="whiteText">#FFFFFFFF</color>
 </resources>

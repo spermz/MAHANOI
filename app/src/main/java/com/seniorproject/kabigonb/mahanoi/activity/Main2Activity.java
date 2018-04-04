@@ -13,8 +13,12 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.seniorproject.kabigonb.mahanoi.R;
+import com.seniorproject.kabigonb.mahanoi.dao.CloseListDataDao;
+import com.seniorproject.kabigonb.mahanoi.dao.OpnListDataDao;
 import com.seniorproject.kabigonb.mahanoi.dao.TokenDao;
 import com.seniorproject.kabigonb.mahanoi.fragment.AccountFragment;
+import com.seniorproject.kabigonb.mahanoi.fragment.CloseFragment;
+import com.seniorproject.kabigonb.mahanoi.fragment.OpenFragment;
 import com.seniorproject.kabigonb.mahanoi.fragment.RequestFragment;
 import com.seniorproject.kabigonb.mahanoi.fragment.ServiceFragment;
 import com.seniorproject.kabigonb.mahanoi.manager.HttpManager;
@@ -26,7 +30,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.http.HTTP;
 
-public class Main2Activity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, Callback<TokenDao> {
+public class Main2Activity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener
+        , Callback<TokenDao>
+        , OpenFragment.OpenFragmentListener
+        , CloseFragment.CloseFragmentListener{
 
     BottomNavigationView bnvMenu;
     Toolbar toolbar2;
@@ -169,6 +176,23 @@ public class Main2Activity extends AppCompatActivity implements BottomNavigation
     @Override
     public void onFailure(Call<TokenDao> call, Throwable t) {
         Toast.makeText(getApplicationContext(),t.toString(),Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onOfferItemClicked(OpnListDataDao dao) {
+
+        Intent intent = new Intent(Main2Activity.this,OpenServiceSelectedActivity.class);
+        intent.putExtra("dao",dao);
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void onRequestItemClicked(CloseListDataDao dao) {
+
+        Intent intent = new Intent(Main2Activity.this,CloseServiceSelectedActivity.class);
+        intent.putExtra("dao",dao);
+        startActivity(intent);
     }
 }
 /*

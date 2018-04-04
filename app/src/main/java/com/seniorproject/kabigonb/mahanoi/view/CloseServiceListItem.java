@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.widget.TextView;
 
 import com.inthecheesefactory.thecheeselibrary.view.BaseCustomViewGroup;
 import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
@@ -14,6 +15,8 @@ import com.seniorproject.kabigonb.mahanoi.R;
  * Created by nuuneoi on 11/16/2014.
  */
 public class CloseServiceListItem extends BaseCustomViewGroup {
+
+    TextView list_service_name_close,list_service_serviceName_close,list_service_location_close;
 
     public CloseServiceListItem(Context context) {
         super(context);
@@ -49,6 +52,10 @@ public class CloseServiceListItem extends BaseCustomViewGroup {
 
     private void initInstances() {
         // findViewById here
+        list_service_name_close = findViewById(R.id.list_service_name_close);
+        list_service_serviceName_close = findViewById(R.id.list_service_serviceName_close);
+        list_service_location_close = findViewById(R.id.list_service_location_close);
+
     }
 
     private void initWithAttrs(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -95,7 +102,21 @@ public class CloseServiceListItem extends BaseCustomViewGroup {
 
         super.onMeasure(widthMeasureSpec,newHeightMeasureSpec);
         setMeasuredDimension(width,height);
+    }
 
+    public void setList_service_name_close(String name)
+    {
+        list_service_name_close.setText(name);
+    }
+
+    public void setList_service_serviceName_close(String serviceName)
+    {
+        list_service_serviceName_close.setText(serviceName);
+    }
+
+    public void setList_service_location_close(String location)
+    {
+        list_service_location_close.setText(location);
     }
 
 }
