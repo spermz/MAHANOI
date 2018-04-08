@@ -15,7 +15,7 @@ public class ProviderDataDao {
     @SerializedName("lastname") private String lastName;
     @SerializedName("email")    private String email;
     @SerializedName("typeservice")  private int typeService;
-    @SerializedName("telno")        private String telephoneNumber;
+    @SerializedName("Telno")        private String telephoneNumber;
     @SerializedName("detail")       private String detail;
 
     public String getToken() {

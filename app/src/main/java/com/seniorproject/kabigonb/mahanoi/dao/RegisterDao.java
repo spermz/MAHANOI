@@ -13,7 +13,7 @@ public class RegisterDao {
     @SerializedName("email")        private String email;
     @SerializedName("password")     private String password;
     @SerializedName("citizenId")    private String citizenId;
-    @SerializedName("telno")       private String number;
+    @SerializedName("Telno")       private String number;
     @SerializedName("err")       private String errorMessage;
     @SerializedName("status")    private String statusMessage;
 
