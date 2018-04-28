@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 import com.seniorproject.kabigonb.mahanoi.R;
 import com.seniorproject.kabigonb.mahanoi.activity.Main2Activity;
 import com.seniorproject.kabigonb.mahanoi.dao.LoginDao;
@@ -106,6 +107,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Call
 
             Call<TokenDao> call = HttpManager.getInstance().getService().userLogin(loginFormDAO());
             call.enqueue(this);
+            btnLogin.setEnabled(false);
             //Intent intentLogIn = new Intent(getActivity(), Main2Activity.class);
             //startActivity(intentLogIn);
         }
@@ -137,16 +139,17 @@ public class MainFragment extends Fragment implements View.OnClickListener, Call
 
     @Override
     public void onResponse(Call<TokenDao> call, Response<TokenDao> response) {
+        btnLogin.setEnabled(true);
         if(response.isSuccessful())
         {
             TokenDao token = response.body();
             if(token.getErrorMessage() != null)
             {
-                Toast.makeText(getContext(),token.getErrorMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(Contextor.getInstance().getContext(),token.getErrorMessage(),Toast.LENGTH_SHORT).show();
             }
             else if(token.getStatusMessage() != null)
             {
-                Toast.makeText(getContext(),token.getStatusMessage(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(Contextor.getInstance().getContext(),token.getStatusMessage(),Toast.LENGTH_SHORT).show();
             }
             else
             {
@@ -164,7 +167,7 @@ public class MainFragment extends Fragment implements View.OnClickListener, Call
         else
         {
             try {
-                Toast.makeText(getContext(),response.errorBody().string(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(Contextor.getInstance().getContext(),response.errorBody().string(),Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -174,7 +177,8 @@ public class MainFragment extends Fragment implements View.OnClickListener, Call
 
     @Override
     public void onFailure(Call<TokenDao> call, Throwable t) {
-        Toast.makeText(getContext(),t.toString(),Toast.LENGTH_SHORT).show();
+        btnLogin.setEnabled(true);
+        Toast.makeText(Contextor.getInstance().getContext(),t.toString(),Toast.LENGTH_SHORT).show();
     }
 }
 

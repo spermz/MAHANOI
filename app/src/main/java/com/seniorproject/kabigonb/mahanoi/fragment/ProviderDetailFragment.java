@@ -172,13 +172,12 @@ public class ProviderDetailFragment extends Fragment implements View.OnClickList
 
         if(v == btnServiceDenied)
         {
-
+            btnServiceDenied.setEnabled(false);
         }
 
         if(v == btnServiceAccept)
         {
-           // Call<MatchMakingDao> call = HttpManager.getInstance().getService().userConfirmOffer(matchMakingForm(dao));
-           // call.enqueue(responseMatchMaking);
+            btnServiceAccept.setEnabled(false);
 
             Intent intent = new Intent(getActivity(), MapsActivity.class);
             intent.putExtra("dao",dao);
@@ -231,6 +230,9 @@ public class ProviderDetailFragment extends Fragment implements View.OnClickList
     Callback<MatchMakingDao> responseMatchMaking = new Callback<MatchMakingDao>() {
         @Override
         public void onResponse(Call<MatchMakingDao> call, Response<MatchMakingDao> response) {
+
+            btnServiceAccept.setEnabled(true);
+
             if (response.isSuccessful()) {
                 Toast.makeText(Contextor.getInstance().getContext(), response.body().getStatusMessage(), Toast.LENGTH_SHORT).show();
             } else {
@@ -241,6 +243,8 @@ public class ProviderDetailFragment extends Fragment implements View.OnClickList
 
         @Override
         public void onFailure(Call<MatchMakingDao> call, Throwable t) {
+
+            btnServiceAccept.setEnabled(true);
 
             Toast.makeText(Contextor.getInstance().getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
 

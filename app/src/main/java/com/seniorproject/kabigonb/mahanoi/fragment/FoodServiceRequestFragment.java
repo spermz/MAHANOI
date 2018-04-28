@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 import com.seniorproject.kabigonb.mahanoi.R;
 import com.seniorproject.kabigonb.mahanoi.dao.RequestFormDao;
 import com.seniorproject.kabigonb.mahanoi.manager.HttpManager;
@@ -111,10 +112,21 @@ public class FoodServiceRequestFragment extends Fragment implements View.OnClick
     public void onClick(View v) {
         if(v == btnFoodServiceRequestNext)
         {
+            if(service_food_radioGroup.getCheckedRadioButtonId() == -1)
+            {
+                Toast.makeText(Contextor.getInstance().getContext(),"Please select kind of work.",Toast.LENGTH_SHORT).show();
+            }
+            else if(etFoodServiceRequest_amount.getText().toString().equals(""))
 
-
-            Call<RequestFormDao> call = HttpManager.getInstance().getService().userRequest(getRequestForm());
-            call.enqueue(this);
+            {
+                Toast.makeText(Contextor.getInstance().getContext(),"Please fill some menu.",Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                btnFoodServiceRequestNext.setEnabled(false);
+                Call<RequestFormDao> call = HttpManager.getInstance().getService().userRequest(getRequestForm());
+                call.enqueue(this);
+            }
         }
     }
 
@@ -156,16 +168,18 @@ public class FoodServiceRequestFragment extends Fragment implements View.OnClick
     @Override
     public void onResponse(Call<RequestFormDao> call, Response<RequestFormDao> response) {
 
+        btnFoodServiceRequestNext.setEnabled(true);
+
         if(response.isSuccessful())
         {
             RequestFormDao Response = response.body();
             if(Response.getErrorMessage() != null)
             {
-                Toast.makeText(getContext(), Response.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Contextor.getInstance().getContext(), Response.getErrorMessage(), Toast.LENGTH_SHORT).show();
             }
             else
             {
-                Toast.makeText(getContext(), "Request has been sent", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Contextor.getInstance().getContext(), "Request has been sent", Toast.LENGTH_SHORT).show();
                 getActivity().finish();
             }
 
@@ -173,7 +187,7 @@ public class FoodServiceRequestFragment extends Fragment implements View.OnClick
         else
         {
             try {
-                Toast.makeText(getContext(),response.errorBody().string(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(Contextor.getInstance().getContext(),response.errorBody().string(),Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -183,6 +197,7 @@ public class FoodServiceRequestFragment extends Fragment implements View.OnClick
 
     @Override
     public void onFailure(Call<RequestFormDao> call, Throwable t) {
-        Toast.makeText(getContext(),t.toString(),Toast.LENGTH_SHORT).show();
+        btnFoodServiceRequestNext.setEnabled(true);
+        Toast.makeText(Contextor.getInstance().getContext(),t.toString(),Toast.LENGTH_SHORT).show();
     }
 }

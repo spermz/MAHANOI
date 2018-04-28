@@ -147,6 +147,11 @@ public class OpenFragment extends Fragment implements Callback<OpenListDao>
         if(response.isSuccessful())
         {
             OpenListDao dao = response.body();
+            if(dao.getErrorMessage() != null)
+            {
+                Toast.makeText(Contextor.getInstance().getContext(),dao.getErrorMessage(),Toast.LENGTH_SHORT).show();
+            }
+
             openServiceListAdapter.setDao(dao);
             OpenServiceManager.getInstance().setDao(dao);
             openServiceListAdapter.notifyDataSetChanged();

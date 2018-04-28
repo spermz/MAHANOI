@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 import com.seniorproject.kabigonb.mahanoi.R;
 import com.seniorproject.kabigonb.mahanoi.dao.RegisterDao;
 import com.seniorproject.kabigonb.mahanoi.manager.HttpManager;
@@ -27,7 +28,7 @@ import retrofit2.Response;
 public class SignupFragment extends Fragment implements View.OnClickListener, Callback<RegisterDao> {
 
     Button btnRegister;
-    EditText etEmail,etPassword,etName,etLastName,etCitizenId,etNumber,etUserName;
+    EditText etEmail,etPassword,etName,etLastName,etCitizenId,etNumber,etUserName,etConfirmPassword;
     public SignupFragment() {
         super();
     }
@@ -59,7 +60,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener, Ca
         etCitizenId =   rootView.findViewById(R.id.etCitizenId);
         etNumber    =   rootView.findViewById(R.id.etPhoneNumber);
         etUserName  =   rootView.findViewById(R.id.etUserName);
-
+        etConfirmPassword  =   rootView.findViewById(R.id.etConfirmPassword);
     }
 
     @Override
@@ -97,8 +98,22 @@ public class SignupFragment extends Fragment implements View.OnClickListener, Ca
 
         if(v == btnRegister) {
 
-            Call<RegisterDao> call = HttpManager.getInstance().getService().registerUser(regFormDAO());
-            call.enqueue(this);
+            btnRegister.setEnabled(false);
+            if(!etPassword.getText().toString().equals(etConfirmPassword.getText().toString()))
+            {
+                Toast.makeText(Contextor.getInstance().getContext()
+                        , "Password does not match."
+                        , Toast.LENGTH_SHORT)
+                        .show();
+                btnRegister.setEnabled(true);
+            }
+
+            else
+            {
+                Call<RegisterDao> call = HttpManager.getInstance().getService().registerUser(regFormDAO());
+                call.enqueue(this);
+            }
+
 
         }
 
@@ -121,16 +136,18 @@ public class SignupFragment extends Fragment implements View.OnClickListener, Ca
     @Override
     public void onResponse(Call<RegisterDao> call, Response<RegisterDao> response) {
 
+        btnRegister.setEnabled(true);
+
         if(response.isSuccessful())
         {
             RegisterDao signupResponse = response.body();
             if(signupResponse.getErrorMessage() != null)
             {
-                Toast.makeText(getContext(), signupResponse.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Contextor.getInstance().getContext(), signupResponse.getErrorMessage(), Toast.LENGTH_SHORT).show();
             }
             else
             {
-                Toast.makeText(getContext(), "Register Successful", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Contextor.getInstance().getContext(), "Register Successful", Toast.LENGTH_SHORT).show();
                 getFragmentManager().beginTransaction()
                                     .replace(R.id.contentContainer,MainFragment.newInstance())
                                     .commit();
@@ -140,7 +157,7 @@ public class SignupFragment extends Fragment implements View.OnClickListener, Ca
         else
         {
             try {
-                Toast.makeText(getContext(),response.errorBody().string(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(Contextor.getInstance().getContext(),response.errorBody().string(),Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -151,7 +168,8 @@ public class SignupFragment extends Fragment implements View.OnClickListener, Ca
 
     @Override
     public void onFailure(Call<RegisterDao> call, Throwable t) {
-        Toast.makeText(getContext(),t.toString(),Toast.LENGTH_SHORT).show();
+        btnRegister.setEnabled(true);
+        Toast.makeText(Contextor.getInstance().getContext(),t.toString(),Toast.LENGTH_SHORT).show();
     }
 }
 

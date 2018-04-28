@@ -109,8 +109,25 @@ public class CleaningServiceRequestFragment extends Fragment implements View.OnC
 
         if(v == btnPlumberServiceRequest)
         {
-            Call<RequestFormDao> call = HttpManager.getInstance().getService().userRequest(requestDaoForm());
-            call.enqueue(this);
+
+            if(service_cleaning_serviceType.getText().toString().equals(""))
+            {
+                Toast.makeText(Contextor.getInstance().getContext(),"Please fill kind of work.",Toast.LENGTH_SHORT).show();
+            }
+            else if(service_cleaning_servicePlace.getText().toString().equals(""))
+            {
+                Toast.makeText(Contextor.getInstance().getContext(),"Please fill service place.",Toast.LENGTH_SHORT).show();
+            }
+            else if(service_cleaning_amount.getText().toString().equals(""))
+            {
+                Toast.makeText(Contextor.getInstance().getContext(),"Please fill number of rooms.",Toast.LENGTH_SHORT).show();
+            }
+            else{
+                btnPlumberServiceRequest.setEnabled(false);
+                Call<RequestFormDao> call = HttpManager.getInstance().getService().userRequest(requestDaoForm());
+                call.enqueue(this);
+            }
+
         }
 
     }
@@ -135,17 +152,19 @@ public class CleaningServiceRequestFragment extends Fragment implements View.OnC
     @Override
     public void onResponse(Call<RequestFormDao> call, Response<RequestFormDao> response) {
 
+        btnPlumberServiceRequest.setEnabled(true);
+
         if(response.isSuccessful())
         {
             RequestFormDao dao = response.body();
 
             if(dao.getErrorMessage() != null)
             {
-                Toast.makeText(getContext(), dao.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Contextor.getInstance().getContext(), dao.getErrorMessage(), Toast.LENGTH_SHORT).show();
             }
             else
             {
-                Toast.makeText(getContext(), "Request has been sent", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Contextor.getInstance().getContext(), "Request has been sent", Toast.LENGTH_SHORT).show();
                 getActivity().finish();
             }
 
@@ -159,6 +178,8 @@ public class CleaningServiceRequestFragment extends Fragment implements View.OnC
 
     @Override
     public void onFailure(Call<RequestFormDao> call, Throwable t) {
+
+        btnPlumberServiceRequest.setEnabled(true);
 
         Toast.makeText(Contextor.getInstance().getContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
 

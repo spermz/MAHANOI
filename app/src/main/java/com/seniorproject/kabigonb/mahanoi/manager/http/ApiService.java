@@ -1,5 +1,6 @@
 package com.seniorproject.kabigonb.mahanoi.manager.http;
 
+import com.seniorproject.kabigonb.mahanoi.dao.ChangePasswordDao;
 import com.seniorproject.kabigonb.mahanoi.dao.CloseListDao;
 import com.seniorproject.kabigonb.mahanoi.dao.LoginDao;
 import com.seniorproject.kabigonb.mahanoi.dao.MatchMakingDao;
@@ -42,4 +43,12 @@ public interface ApiService {
 
     @POST("userConfirmOffer")
     Call<MatchMakingDao>     userConfirmOffer(@Body MatchMakingDao matchMakingDao);
+
+    @POST("userForgetPassword")
+    Call<ChangePasswordDao> resetPassword(@Body ChangePasswordDao changePasswordDao);
+
+    @POST("userEdit")
+    Call<RegisterDao> userUpdate(@Body RegisterDao registerDao);
+
+
 }

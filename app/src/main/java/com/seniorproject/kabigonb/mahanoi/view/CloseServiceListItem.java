@@ -97,7 +97,7 @@ public class CloseServiceListItem extends BaseCustomViewGroup {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = MeasureSpec.getSize(widthMeasureSpec);
-        int height = width*1/3;
+        int height = width*1/4;
         int newHeightMeasureSpec = MeasureSpec.makeMeasureSpec(height,MeasureSpec.EXACTLY);
 
         super.onMeasure(widthMeasureSpec,newHeightMeasureSpec);

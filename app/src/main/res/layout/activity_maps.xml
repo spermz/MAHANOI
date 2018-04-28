@@ -18,6 +18,7 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:background="@color/colorSecondary"
+        android:layout_marginBottom="10dp"
         android:text="Select this place"/>
 
 </LinearLayout>

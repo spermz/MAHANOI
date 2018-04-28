@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class RegisterDao {
+    @SerializedName("token")        private String token;
     @SerializedName("name")         private String firstname;
     @SerializedName("lastname")     private String lastname;
     @SerializedName("Username")     private String username;
@@ -16,6 +17,14 @@ public class RegisterDao {
     @SerializedName("Telno")       private String number;
     @SerializedName("err")       private String errorMessage;
     @SerializedName("status")    private String statusMessage;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public String getFirstname() {
         return firstname;

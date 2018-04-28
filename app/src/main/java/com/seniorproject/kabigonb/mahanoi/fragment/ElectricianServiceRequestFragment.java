@@ -118,8 +118,23 @@ public class ElectricianServiceRequestFragment extends Fragment implements View.
 
         if(v == btnElectricianServiceRequest)
         {
-            Call<RequestFormDao> call = HttpManager.getInstance().getService().userRequest(requestDaoForm());
-            call.enqueue(this);
+            if(service_electrician_radioGroup.getCheckedRadioButtonId() == -1)
+            {
+                Toast.makeText(Contextor.getInstance().getContext(),"Please select kind of work.",Toast.LENGTH_SHORT).show();
+            }
+            else if(service_electrician_problem.getText().toString().equals(""))
+            {
+                Toast.makeText(Contextor.getInstance().getContext(),"Please fill the problem.",Toast.LENGTH_SHORT).show();
+            }
+            else if(service_electrician_servicePlace.getText().toString().equals(""))
+            {
+                Toast.makeText(Contextor.getInstance().getContext(),"Please fill service place.",Toast.LENGTH_SHORT).show();
+            }
+            else {
+                btnElectricianServiceRequest.setEnabled(false);
+                Call<RequestFormDao> call = HttpManager.getInstance().getService().userRequest(requestDaoForm());
+                call.enqueue(this);
+            }
         }
 
     }
@@ -158,13 +173,15 @@ public class ElectricianServiceRequestFragment extends Fragment implements View.
     @Override
     public void onResponse(Call<RequestFormDao> call, Response<RequestFormDao> response) {
 
+        btnElectricianServiceRequest.setEnabled(true);
+
         if(response.isSuccessful())
         {
             RequestFormDao dao = response.body();
 
             if(dao.getErrorMessage() != null)
             {
-                Toast.makeText(getContext(), dao.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Contextor.getInstance().getContext(), dao.getErrorMessage(), Toast.LENGTH_SHORT).show();
             }
             else
             {
@@ -182,6 +199,8 @@ public class ElectricianServiceRequestFragment extends Fragment implements View.
 
     @Override
     public void onFailure(Call<RequestFormDao> call, Throwable t) {
+
+        btnElectricianServiceRequest.setEnabled(true);
 
         Toast.makeText(Contextor.getInstance().getContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
 

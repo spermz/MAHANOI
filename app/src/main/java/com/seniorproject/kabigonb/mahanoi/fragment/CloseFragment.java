@@ -145,7 +145,14 @@ public class CloseFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
             if(response.isSuccessful())
             {
+
                 CloseListDao dao = response.body();
+
+                if(dao.getErrorMessage() != null)
+                {
+                    Toast.makeText(Contextor.getInstance().getContext(),dao.getErrorMessage(),Toast.LENGTH_SHORT).show();
+                }
+
                 closeServiceListAdapter.setDao(dao);
                 CloseServiceManager.getInstance().setDao(dao);
                 closeServiceListAdapter.notifyDataSetChanged();

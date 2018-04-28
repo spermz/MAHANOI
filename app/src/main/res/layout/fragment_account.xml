@@ -12,8 +12,10 @@
         android:id="@+id/tvProfileUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/text"
         android:text="Profile"
-        android:textSize="20sp"/>
+        android:textSize="30sp"/>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -34,15 +36,32 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/til_Account_Name"
+        android:layout_below="@+id/til_Account_Name"
+        android:layout_marginTop="28dp"
+        android:id="@+id/til_Account_lastName"
+        >
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:id="@+id/teAccountLastName"
+            android:hint="Lastname"
+            android:textSize="18sp"/>
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/til_Account_lastName"
         android:layout_marginTop="28dp"
         android:id="@+id/til_Account_Number"
         >
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:id="@+id/te_Account_Number"
+            android:inputType="number"
+            android:id="@+id/teAccountNumber"
             android:hint="Number"
             android:textSize="18sp"/>
 
@@ -56,6 +75,7 @@
         android:layout_centerHorizontal="true"
         android:background="@color/colorSecondary"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         android:text="UPDATE"/>
 
 

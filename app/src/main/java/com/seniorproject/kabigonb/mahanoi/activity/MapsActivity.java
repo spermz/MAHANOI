@@ -219,6 +219,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if(v == btnResponseConfirm)
         {
+            btnResponseConfirm.setEnabled(false);
             Call<MatchMakingDao> call = HttpManager.getInstance().getService().userConfirmOffer(matchMakingForm());
             call.enqueue(this);
         }
@@ -242,6 +243,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onResponse(Call<MatchMakingDao> call, Response<MatchMakingDao> response) {
+
+        btnResponseConfirm.setEnabled(true);
 
         if(response.isSuccessful())
         {
@@ -284,6 +287,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onFailure(Call<MatchMakingDao> call, Throwable t) {
+
+        btnResponseConfirm.setEnabled(true);
 
         Toast.makeText(getApplicationContext()
                 ,t.getMessage()

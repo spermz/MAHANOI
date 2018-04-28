@@ -158,14 +158,36 @@ public class PlumberServiceRequestFragment extends Fragment implements View.OnCl
 
         if(v == btnPlumberServiceRequest)
         {
-            Call<RequestFormDao> call = HttpManager.getInstance().getService().userRequest(daoRequestForm());
-            call.enqueue(this);
+            if(service_plumber_radioGroup.getCheckedRadioButtonId() == -1)
+            {
+                Toast.makeText(Contextor.getInstance().getContext(),"Please select kind of work.",Toast.LENGTH_SHORT).show();
+            }
+            else if(service_plumber_plumbingSystemPart.getText().toString().equals(""))
+            {
+                Toast.makeText(Contextor.getInstance().getContext(),"Please fill the system part.",Toast.LENGTH_SHORT).show();
+            }
+            else if(service_plumber_problem.getText().toString().equals(""))
+            {
+                Toast.makeText(Contextor.getInstance().getContext(),"Please fill the problem.",Toast.LENGTH_SHORT).show();
+            }
+            else if(service_plumber_servicePlace.getText().toString().equals(""))
+            {
+                Toast.makeText(Contextor.getInstance().getContext(),"Please fill the service place type.",Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                btnPlumberServiceRequest.setEnabled(false);
+                Call<RequestFormDao> call = HttpManager.getInstance().getService().userRequest(daoRequestForm());
+                call.enqueue(this);
+            }
         }
 
     }
 
     @Override
     public void onResponse(Call<RequestFormDao> call, Response<RequestFormDao> response) {
+
+        btnPlumberServiceRequest.setEnabled(true);
 
         if(response.isSuccessful())
         {
@@ -180,7 +202,7 @@ public class PlumberServiceRequestFragment extends Fragment implements View.OnCl
 
             else
             {
-                Toast.makeText(getContext(), "Request has been sent", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Contextor.getInstance().getContext(), "Request has been sent", Toast.LENGTH_SHORT).show();
                 getActivity().finish();
             }
 
@@ -195,6 +217,8 @@ public class PlumberServiceRequestFragment extends Fragment implements View.OnCl
 
     @Override
     public void onFailure(Call<RequestFormDao> call, Throwable t) {
+
+        btnPlumberServiceRequest.setEnabled(true);
         Toast.makeText(Contextor.getInstance().getContext(),t.getMessage(),Toast.LENGTH_SHORT).show();
     }
 }
