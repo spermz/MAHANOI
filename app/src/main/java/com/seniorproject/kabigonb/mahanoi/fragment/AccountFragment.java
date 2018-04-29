@@ -61,6 +61,20 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
 
         btn_Account_Update.setOnClickListener(this);
 
+        Call<RegisterDao> call = HttpManager.getInstance().getService().loadUserData(loadFrom());
+        call.enqueue(callbackLoadForm);
+
+    }
+
+    private RegisterDao loadFrom() {
+
+        RegisterDao dao = new RegisterDao();
+        SharedPreferences prefs = getActivity().getSharedPreferences("token",Context.MODE_PRIVATE);
+
+        dao.setUsername(prefs.getString("userName",null));
+        dao.setToken(prefs.getString("token",null));
+
+        return dao;
     }
 
     @Override
@@ -117,6 +131,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         dao.setNumber(teAccountNumber.getText().toString());
 
 
+
         return dao;
 
     }
@@ -165,6 +180,43 @@ public class AccountFragment extends Fragment implements View.OnClickListener {
         public void onFailure(Call<RegisterDao> call, Throwable t) {
 
             btn_Account_Update.setEnabled(true);
+
+            Toast.makeText(Contextor.getInstance().getContext()
+                    ,t.toString()
+                    ,Toast.LENGTH_SHORT)
+                    .show();
+        }
+    };
+
+    Callback<RegisterDao> callbackLoadForm = new Callback<RegisterDao>() {
+        @Override
+        public void onResponse(Call<RegisterDao> call, Response<RegisterDao> response) {
+
+            if(response.isSuccessful())
+            {
+                RegisterDao dao = response.body();
+
+                teAccountName.setText(dao.getFirstname());
+                teAccountNumber.setText(dao.getNumber());
+                teAccountLastName.setText(dao.getLastname());
+
+            }
+            else
+            {
+                try {
+                    Toast.makeText(Contextor.getInstance().getContext()
+                            ,response.errorBody().string()
+                            ,Toast.LENGTH_SHORT)
+                            .show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+        @Override
+        public void onFailure(Call<RegisterDao> call, Throwable t) {
 
             Toast.makeText(Contextor.getInstance().getContext()
                     ,t.toString()

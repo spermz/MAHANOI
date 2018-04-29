@@ -50,5 +50,7 @@ public interface ApiService {
     @POST("userEdit")
     Call<RegisterDao> userUpdate(@Body RegisterDao registerDao);
 
+    @POST("userShow")
+    Call<RegisterDao>   loadUserData(@Body RegisterDao registerDao);
 
 }
