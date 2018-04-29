@@ -5,9 +5,7 @@ import android.content.Context;
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 import com.seniorproject.kabigonb.mahanoi.dao.CloseListDao;
 
-/**
- * Created by nuuneoi on 11/16/2014.
- */
+
 public class CloseServiceManager {
 
     private static CloseServiceManager instance;

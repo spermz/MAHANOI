@@ -2,6 +2,7 @@ package com.seniorproject.kabigonb.mahanoi.manager.http;
 
 import com.seniorproject.kabigonb.mahanoi.dao.ChangePasswordDao;
 import com.seniorproject.kabigonb.mahanoi.dao.CloseListDao;
+import com.seniorproject.kabigonb.mahanoi.dao.DeniedDao;
 import com.seniorproject.kabigonb.mahanoi.dao.LoginDao;
 import com.seniorproject.kabigonb.mahanoi.dao.MatchMakingDao;
 import com.seniorproject.kabigonb.mahanoi.dao.OpenListDao;
@@ -52,5 +53,8 @@ public interface ApiService {
 
     @POST("userShow")
     Call<RegisterDao>   loadUserData(@Body RegisterDao registerDao);
+
+    @POST("denied")
+    Call<DeniedDao>    offerDenied(@Body DeniedDao deniedDao);
 
 }

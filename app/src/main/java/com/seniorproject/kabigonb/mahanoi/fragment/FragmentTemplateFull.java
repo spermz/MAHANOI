@@ -10,9 +10,7 @@ import android.view.ViewGroup;
 import com.seniorproject.kabigonb.mahanoi.R;
 
 
-/**
- * Created by nuuneoi on 11/16/2014.
- */
+
 @SuppressWarnings("unused")
 public class FragmentTemplateFull extends Fragment {
 

@@ -11,9 +11,7 @@ import com.inthecheesefactory.thecheeselibrary.view.BaseCustomViewGroup;
 import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
 import com.seniorproject.kabigonb.mahanoi.R;
 
-/**
- * Created by nuuneoi on 11/16/2014.
- */
+
 public class CloseServiceListItem extends BaseCustomViewGroup {
 
     TextView list_service_name_close,list_service_serviceName_close,list_service_location_close;

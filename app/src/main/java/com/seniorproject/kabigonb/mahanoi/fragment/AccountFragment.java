@@ -24,9 +24,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-/**
- * Created by nuuneoi on 11/16/2014.
- */
 public class AccountFragment extends Fragment implements View.OnClickListener {
 
     EditText    teAccountName,teAccountNumber,teAccountLastName;

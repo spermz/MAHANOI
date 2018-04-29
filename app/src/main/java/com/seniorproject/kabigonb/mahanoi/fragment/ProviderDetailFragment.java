@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
 import com.seniorproject.kabigonb.mahanoi.R;
 import com.seniorproject.kabigonb.mahanoi.activity.MapsActivity;
+import com.seniorproject.kabigonb.mahanoi.dao.DeniedDao;
 import com.seniorproject.kabigonb.mahanoi.dao.MatchMakingDao;
 import com.seniorproject.kabigonb.mahanoi.dao.OpnListDataDao;
 import com.seniorproject.kabigonb.mahanoi.dao.ProviderDataDao;
@@ -29,9 +30,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-/**
- * Created by nuuneoi on 11/16/2014.
- */
 @SuppressWarnings("unused")
 public class ProviderDetailFragment extends Fragment implements View.OnClickListener {
 
@@ -173,6 +171,8 @@ public class ProviderDetailFragment extends Fragment implements View.OnClickList
         if(v == btnServiceDenied)
         {
             btnServiceDenied.setEnabled(false);
+            Call<DeniedDao> call = HttpManager.getInstance().getService().offerDenied(deniedForm());
+            call.enqueue(deniedDaoCallback);
         }
 
         if(v == btnServiceAccept)
@@ -185,6 +185,18 @@ public class ProviderDetailFragment extends Fragment implements View.OnClickList
 
         }
 
+    }
+
+    private DeniedDao deniedForm() {
+
+        DeniedDao deniedDao = new DeniedDao();
+        SharedPreferences prefs = getActivity().getSharedPreferences("token",Context.MODE_PRIVATE);
+
+        deniedDao.setToken(prefs.getString("token",null));
+        deniedDao.setUsername(prefs.getString("userName",null));
+        deniedDao.setResponseId(dao.getResponseId());
+
+        return deniedDao;
     }
 
     private MatchMakingDao matchMakingForm(OpnListDataDao opnListDataDao) {
@@ -234,9 +246,20 @@ public class ProviderDetailFragment extends Fragment implements View.OnClickList
             btnServiceAccept.setEnabled(true);
 
             if (response.isSuccessful()) {
-                Toast.makeText(Contextor.getInstance().getContext(), response.body().getStatusMessage(), Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Contextor.getInstance().getContext()
+                        , response.body().getStatusMessage()
+                        , Toast.LENGTH_SHORT)
+                        .show();
+            }
+            else {
+                try {
+                    Toast.makeText(Contextor.getInstance().getContext()
+                            , response.errorBody().string()
+                            , Toast.LENGTH_SHORT)
+                            .show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
         }
@@ -246,8 +269,68 @@ public class ProviderDetailFragment extends Fragment implements View.OnClickList
 
             btnServiceAccept.setEnabled(true);
 
-            Toast.makeText(Contextor.getInstance().getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(Contextor.getInstance().getContext()
+                    , t.toString()
+                    , Toast.LENGTH_SHORT)
+                    .show();
 
+        }
+    };
+
+    Callback<DeniedDao> deniedDaoCallback = new Callback<DeniedDao>() {
+        @Override
+        public void onResponse(Call<DeniedDao> call, Response<DeniedDao> response) {
+
+            btnServiceDenied.setEnabled(true);
+
+            if(response.isSuccessful())
+            {
+                DeniedDao dao = response.body();
+                if(dao.getErrorMessage() != null)
+                {
+                    Toast.makeText(Contextor.getInstance().getContext()
+                            , dao.getErrorMessage()
+                            , Toast.LENGTH_SHORT)
+                            .show();
+                }
+                else if(!dao.getStatusMessage().equals("บันทึกข้อมูลสำเร็จ"))
+                {
+                    Toast.makeText(Contextor.getInstance().getContext()
+                            , dao.getStatusMessage()
+                            , Toast.LENGTH_SHORT)
+                            .show();
+                }
+                else
+                {
+                    Toast.makeText(Contextor.getInstance().getContext()
+                            , dao.getStatusMessage()
+                            , Toast.LENGTH_SHORT)
+                            .show();
+                    getActivity().finish();
+                }
+            }
+            else
+            {
+                try {
+                    Toast.makeText(Contextor.getInstance().getContext()
+                            , response.errorBody().string()
+                            , Toast.LENGTH_SHORT)
+                            .show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+        @Override
+        public void onFailure(Call<DeniedDao> call, Throwable t) {
+
+            btnServiceDenied.setEnabled(true);
+            Toast.makeText(Contextor.getInstance().getContext()
+                    , t.toString()
+                    , Toast.LENGTH_SHORT)
+                    .show();
         }
     };
 

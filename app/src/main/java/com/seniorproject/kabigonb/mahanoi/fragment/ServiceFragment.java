@@ -16,9 +16,7 @@ import com.seniorproject.kabigonb.mahanoi.activity.ServiceFoodActivity;
 import com.seniorproject.kabigonb.mahanoi.activity.ServicePlumberActivity;
 
 
-/**
- * Created by nuuneoi on 11/16/2014.
- */
+
 public class ServiceFragment extends Fragment implements View.OnClickListener {
 
     ImageButton im_btn_Food,im_btn_Plumber,im_btn_electrician,im_btn_cleaning;

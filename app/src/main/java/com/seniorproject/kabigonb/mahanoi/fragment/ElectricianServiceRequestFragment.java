@@ -23,9 +23,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-/**
- * Created by nuuneoi on 11/16/2014.
- */
 @SuppressWarnings("unused")
 public class ElectricianServiceRequestFragment extends Fragment implements View.OnClickListener, Callback<RequestFormDao> {
 

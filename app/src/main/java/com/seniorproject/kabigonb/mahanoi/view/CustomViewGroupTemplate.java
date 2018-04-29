@@ -11,9 +11,7 @@ import com.inthecheesefactory.thecheeselibrary.view.BaseCustomViewGroup;
 import com.inthecheesefactory.thecheeselibrary.view.state.BundleSavedState;
 import com.seniorproject.kabigonb.mahanoi.R;
 
-/**
- * Created by nuuneoi on 11/16/2014.
- */
+
 public class CustomViewGroupTemplate extends BaseCustomViewGroup {
 
     public CustomViewGroupTemplate(Context context) {

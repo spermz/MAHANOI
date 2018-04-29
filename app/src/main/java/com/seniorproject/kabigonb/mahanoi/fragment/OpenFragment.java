@@ -31,9 +31,6 @@ import retrofit2.Response;
 import retrofit2.http.HTTP;
 
 
-/**
- * Created by nuuneoi on 11/16/2014.
- */
 @SuppressWarnings("unused")
 public class OpenFragment extends Fragment implements Callback<OpenListDao>
         , SwipeRefreshLayout.OnRefreshListener
