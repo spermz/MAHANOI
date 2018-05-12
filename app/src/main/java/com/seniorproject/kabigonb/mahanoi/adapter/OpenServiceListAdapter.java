@@ -69,7 +69,7 @@ public class OpenServiceListAdapter extends BaseAdapter{
 
         item.setList_service_name(dao.getProviderUsername());
         item.setList_service_serviceName(selectType(dao.getTypeService()));
-
+        item.setList_service_location("ID : " + dao.getResponseId());
 
         return item;
 

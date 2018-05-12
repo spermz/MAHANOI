@@ -63,7 +63,7 @@ public class CloseServiceListAdapter extends BaseAdapter {
 
         CloseListDataDao dao = (CloseListDataDao) getItem(position);
 
-       // item.setList_service_location_close();
+        item.setList_service_location_close("ID : " + dao.getOfferId());
         item.setList_service_name_close(dao.getProviderName());
         item.setList_service_serviceName_close(selectType(dao.getTypeService()));
         return item;
